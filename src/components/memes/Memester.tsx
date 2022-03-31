@@ -3,23 +3,18 @@ import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 
 export const Mimster = () => {
-  const [{ data, loading, error }, dispatch] = useReducer(
-    MemeReducer,
-    initialState
-  )
+  const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
   useInterval(() => {
     fetchMeme()
-  }, 30000)
+  }, 1000 * 10)
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
-
     fetch('https://meme-api.herokuapp.com/gimme')
       .then((res: Response) => res.json())
       .then((data: any) => {
         if (data.url.includes('.gif') || data.nsfw) {
-          console.log('Is either NSFW or a gif.')
           fetchMeme()
           return
         }
@@ -30,17 +25,19 @@ export const Mimster = () => {
       })
   }
 
-  if (loading) return <div>Loading...</div>
+  if (error && !data) return <div>{error.message}</div>
 
-  if (error) return <div>{error.message}</div>
+  if (!data) return null
 
   return (
     <div className="image-container">
-      <img
-        style={{ height: window.innerHeight }}
-        alt="Just a meme"
-        src={data.url}
-      />
+      {data && (
+        <img
+          style={{ height: window.innerHeight }}
+          alt="Just a meme"
+          src={data.url}
+        />
+      )}
     </div>
   )
 }

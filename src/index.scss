@@ -1,3 +1,6 @@
+@import './weather-icons-wind.css';
+@import './weather-icons.css';
+
 body,
 html {
   margin: 0;
@@ -7,10 +10,12 @@ html {
 body {
   width: 100%;
   height: 100vh;
-  // overflow:  hidden;
+  background-color: #f0f0f0;
 }
 
 .app {
+  height: 100vh;
+
   .image-container {
     width: 100%;
     height: 100%;
