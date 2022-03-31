@@ -29,9 +29,18 @@ export const Mimster = () => {
         dispatch({ type: ActionKind.Error, payload: e as Error })
       })
   }
+
   if (loading) return <div>Loading...</div>
 
   if (error) return <div>{error.message}</div>
 
-  return <img alt="Just a meme" src={data.url} />
+  return (
+    <div className="image-container">
+      <img
+        style={{ height: window.innerHeight }}
+        alt="Just a meme"
+        src={data.url}
+      />
+    </div>
+  )
 }
