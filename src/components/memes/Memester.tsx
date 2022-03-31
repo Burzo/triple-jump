@@ -1,9 +1,12 @@
 import { useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
-import reducer, { ActionKind, initialState } from './state/reducer'
+import { ActionKind, initialState, MemeReducer } from './state/reducer'
 
 export const Mimster = () => {
-  const [{ data, loading, error }, dispatch] = useReducer(reducer, initialState)
+  const [{ data, loading, error }, dispatch] = useReducer(
+    MemeReducer,
+    initialState
+  )
 
   useInterval(() => {
     fetchMeme()
@@ -29,5 +32,5 @@ export const Mimster = () => {
 
   if (error) return <div>{error.message}</div>
 
-  return <img alt="Meme image" src={data.url} />
+  return <img alt="Just a meme" src={data.url} />
 }
