@@ -14,6 +14,7 @@ export const Mimster = () => {
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
+
     fetch('https://meme-api.herokuapp.com/gimme')
       .then((res: Response) => res.json())
       .then((data: any) => {
