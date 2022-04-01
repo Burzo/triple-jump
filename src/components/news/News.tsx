@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 import './index.scss'
@@ -7,9 +7,9 @@ import _ from 'underscore'
 export const News = () => {
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
-  useInterval(() => {
+  useEffect(() => {
     fetchNews()
-  }, 1000 * 20)
+  }, [])
 
   const fetchNews = () => {
     dispatch({ type: ActionKind.Start })
