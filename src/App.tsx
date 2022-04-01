@@ -1,7 +1,7 @@
-import dayjs from 'dayjs'
 import React, { useState } from 'react'
-// import { Mimster } from './components/memes/Memester'
-// import { Weather } from './components/weather/Weather'
+import { Mimster } from './components/memes/Memester'
+import { News } from './components/news/News'
+import { Weather } from './components/weather/Weather'
 import { useInterval } from './hooks/useInterval'
 import './index.scss'
 
@@ -22,33 +22,10 @@ function App() {
   useInterval(() => {
     setWeather((prev: boolean) => !prev)
   }, 30000)
-  console.log(weather)
-  const newsURL = `https://static01.nyt.com/images/${dayjs().format(
-    'YYYY/MM/DD'
-  )}/nytfrontpage/INYT_frontpage_global.20220401.pdf`
 
   return (
     <div className="app">
-      {/* {i % 5 ? (
-        <Mimster />
-      ) : weather ? (
-        <Weather />
-      ) : (
-        <iframe
-          title="News"
-          src={newsURL}
-          width={window.innerWidth}
-          height={window.innerHeight}
-          frameBorder={0}
-        />
-      )} */}
-      <iframe
-        title="News"
-        src={newsURL}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        frameBorder={0}
-      />
+      {i % 5 ? <Mimster /> : weather ? <Weather /> : <News />}
     </div>
   )
 }
