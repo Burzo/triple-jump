@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { ActionKind, initialState, NewsReducer } from './state/reducer'
 import './index.scss'
-import _ from 'underscore'
+// import _ from 'underscore'
 
 export const News = () => {
   const [{ data, error }, dispatch] = useReducer(NewsReducer, initialState)
