@@ -21,7 +21,7 @@ export const initialState: State = {
   data: null,
 }
 
-export const MemeReducer = (state: State, action: Action): State => {
+export const NewsReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionKind.Start:
       return { ...state, loading: true }

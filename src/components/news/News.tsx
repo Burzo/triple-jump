@@ -1,10 +1,10 @@
 import { useEffect, useReducer } from 'react'
-import { ActionKind, initialState, MemeReducer } from './state/reducer'
+import { ActionKind, initialState, NewsReducer } from './state/reducer'
 import './index.scss'
 import _ from 'underscore'
 
 export const News = () => {
-  const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
+  const [{ data, error }, dispatch] = useReducer(NewsReducer, initialState)
 
   useEffect(() => {
     fetchNews()
@@ -36,7 +36,7 @@ export const News = () => {
       {data &&
         articles.map((article: any, i: number) => {
           return (
-            <div className="article">
+            <div className="article" key={i}>
               <div>
                 <div className="title">{article.title}</div>
                 <div className="content">
