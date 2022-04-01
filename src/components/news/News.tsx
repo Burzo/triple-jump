@@ -27,7 +27,7 @@ export const News = () => {
 
   if (error && !data) return <div>{error.message}</div>
 
-  if (!data) return null
+  // if (!data) return null
 
   // const articles: any[] = _.sample(data.articles, 2)
   const articles: any[] = [
@@ -67,26 +67,21 @@ export const News = () => {
 
   return (
     <div className="news">
-      {data &&
-        articles.map((article: any, i: number) => {
-          return (
-            <div className="article" key={i}>
-              <div>
-                <div className="title">{article.title}</div>
-                <div className="content">
-                  <div className="news-image">
-                    <img
-                      className="image"
-                      alt="news"
-                      src={article.urlToImage}
-                    />
-                  </div>
-                  <div className="description">{article.description}</div>
+      {articles.map((article: any, i: number) => {
+        return (
+          <div className="article" key={i}>
+            <div>
+              <div className="title">{article.title}</div>
+              <div className="content">
+                <div className="news-image">
+                  <img className="image" alt="news" src={article.urlToImage} />
                 </div>
+                <div className="description">{article.description}</div>
               </div>
             </div>
-          )
-        })}
+          </div>
+        )
+      })}
     </div>
   )
 }
