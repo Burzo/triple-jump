@@ -21,7 +21,7 @@ export const News = () => {
       })
       .catch((e: any) => {
         console.log(JSON.stringify(e))
-        dispatch({ type: ActionKind.Error, payload: e as Error })
+        // dispatch({ type: ActionKind.Error, payload: e as Error })
       })
   }
 
