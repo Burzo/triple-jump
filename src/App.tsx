@@ -6,7 +6,7 @@ import { useInterval } from './hooks/useInterval'
 import './index.scss'
 
 function App() {
-  const [i, setI] = useState(1)
+  const [i, setI] = useState(2)
 
   useInterval(() => {
     setI((prev: number) => {
