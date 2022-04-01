@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from 'react'
-import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 import './index.scss'
 import _ from 'underscore'
