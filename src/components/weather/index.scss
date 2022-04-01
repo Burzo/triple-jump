@@ -3,6 +3,10 @@
 
   font-size: 2rem;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
   img {
     background-color: rgb(199, 199, 199);
     border-radius: 200px;

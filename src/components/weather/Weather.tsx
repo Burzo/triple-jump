@@ -66,7 +66,7 @@ export const Weather = () => {
         </div>
         <div className="container align-center">
           <div className="wind-speed">
-            Sunset: {dayjs(data.current.sunset).format('HH:mm')}
+            Visibility: {data.current.visibility / 1000} km
           </div>
         </div>
         <div className="container align-center">
