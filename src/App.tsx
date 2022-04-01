@@ -35,6 +35,7 @@ function App() {
         <Weather />
       ) : (
         <iframe
+          title="News"
           src={newsURL}
           width={window.innerWidth}
           height={window.innerHeight}

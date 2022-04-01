@@ -77,7 +77,6 @@ export const Weather = () => {
       <div className="row">
         <div className="next-container">
           {data.daily.map((day: any, i: number) => {
-            console.log(day)
             if (i < 7) {
               return (
                 <div className="next-day">
@@ -97,6 +96,7 @@ export const Weather = () => {
                 </div>
               )
             }
+            return null
           })}
         </div>
       </div>
