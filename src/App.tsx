@@ -7,11 +7,10 @@ import './index.scss'
 
 function App() {
   const [i, setI] = useState(1)
-  const [weather, setWeather] = useState(false)
 
   useInterval(() => {
     setI((prev: number) => {
-      if (i > 10000000) {
+      if (prev >= 3) {
         return 1
       }
 
@@ -19,15 +18,32 @@ function App() {
     })
   }, 20000)
 
-  useInterval(() => {
-    setWeather((prev: boolean) => !prev)
-  }, 30000)
-
-  return (
-    <div className="app">
-      {i % 5 ? <Mimster /> : weather ? <Weather /> : <News />}
-    </div>
-  )
+  switch (i) {
+    case 1:
+      return (
+        <div className="app">
+          <Mimster />
+        </div>
+      )
+    case 2:
+      return (
+        <div className="app">
+          <Weather />
+        </div>
+      )
+    case 3:
+      return (
+        <div className="app">
+          <News />
+        </div>
+      )
+    default:
+      return (
+        <div className="app">
+          <Mimster />
+        </div>
+      )
+  }
 }
 
 export default App

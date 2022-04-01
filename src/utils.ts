@@ -1,1 +1,2 @@
-export const FtoC = (fahr: number) => (fahr - 32) / 1.8
+export const random = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min)) + min

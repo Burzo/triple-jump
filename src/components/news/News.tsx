@@ -2,13 +2,14 @@ import { useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 import './index.scss'
+import _ from 'underscore'
 
 export const News = () => {
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
   useInterval(() => {
     fetchNews()
-  }, 1000 * 10)
+  }, 1000 * 20)
 
   const fetchNews = () => {
     dispatch({ type: ActionKind.Start })
@@ -17,8 +18,6 @@ export const News = () => {
     )
       .then((res: Response) => res.json())
       .then((data: any) => {
-        console.log(data)
-
         dispatch({ type: ActionKind.Success, payload: data })
       })
       .catch((e: any) => {
@@ -30,12 +29,12 @@ export const News = () => {
 
   if (!data) return null
 
+  const articles: any[] = _.sample(data.articles, 2)
+
   return (
     <div className="news">
       {data &&
-        data.articles.map((article: any, i: number) => {
-          if (i > 1) return null
-
+        articles.map((article: any, i: number) => {
           return (
             <div className="article">
               <div>
