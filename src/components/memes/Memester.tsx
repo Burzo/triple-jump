@@ -57,7 +57,7 @@ export const Mimster = () => {
   if (!data || SUBS.length <= 0) return null
 
   return (
-    <div className="image-container">
+    <>
       {data && (
         <div className="image-inner">
           <div className="image-title">{data.title}</div>
@@ -72,6 +72,6 @@ export const Mimster = () => {
       )}
       {nsfw && <div className="nsfw">NSFW ON</div>}
       {data && <div className="subreddit">{data.subreddit}</div>}
-    </div>
+    </>
   )
 }
