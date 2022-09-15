@@ -16,7 +16,7 @@ export const Mimster = () => {
 
   useInterval(() => {
     fetchMeme()
-  }, 1000 * 10)
+  }, 1000 * (params.interval || 30))
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
