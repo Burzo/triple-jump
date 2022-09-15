@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
