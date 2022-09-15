@@ -7,10 +7,22 @@ export const Mimster = () => {
 
   const urlSearchParams = new URLSearchParams(window.location.search)
 
+  const SUBS: string[] = []
+
   const interval = urlSearchParams.get('interval')
   const nsfw = urlSearchParams.get('nsfw')
   const nogif = urlSearchParams.get('nogif')
   const allgif = urlSearchParams.get('allgif')
+  const subreddits = urlSearchParams.get('subreddits')
+
+  subreddits &&
+    subreddits.split(',').forEach((sub) => {
+      SUBS.push(sub)
+    })
+
+  const randomSub = (subs: string[]) => {
+    return subs[Math.floor(Math.random() * subs.length)]
+  }
 
   useInterval(() => {
     fetchMeme()
@@ -18,7 +30,7 @@ export const Mimster = () => {
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
-    fetch('https://meme-api.herokuapp.com/gimme')
+    fetch(`https://meme-api.herokuapp.com/gimme/${randomSub(SUBS)}`)
       .then((res: Response) => res.json())
       .then((data: any) => {
         if (
@@ -38,7 +50,7 @@ export const Mimster = () => {
 
   if (error && !data) return <div>{error.message}</div>
 
-  if (!data) return null
+  if (!data || SUBS.length <= 0) return null
 
   return (
     <div className="image-container">
@@ -50,6 +62,7 @@ export const Mimster = () => {
         />
       )}
       {nsfw && <div className="nsfw">NSFW ON</div>}
+      {data && <div className="subreddit">{data.subreddit}</div>}
     </div>
   )
 }
