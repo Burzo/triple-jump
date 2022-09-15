@@ -6,21 +6,21 @@ import { ActionKind, initialState, MemeReducer } from './state/reducer'
 export const Mimster = () => {
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
-  const params: { nsfw?: string; interval?: string } = useMemo(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    return Object.fromEntries(urlSearchParams.entries())
-  }, [])
+  const urlSearchParams = new URLSearchParams(window.location.search)
+
+  const interval = urlSearchParams.get('interval')
+  const nsfw = urlSearchParams.get('nsfw')
 
   useInterval(() => {
     fetchMeme()
-  }, 1000 * (params.interval ? parseInt(params.interval) : 30))
+  }, 1000 * (interval ? parseInt(interval) : 30))
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
     fetch('https://meme-api.herokuapp.com/gimme')
       .then((res: Response) => res.json())
       .then((data: any) => {
-        if (data.nsfw && params.nsfw) {
+        if (data.nsfw && nsfw) {
           console.log('Blocking NSFW')
           fetchMeme()
           return
@@ -45,7 +45,7 @@ export const Mimster = () => {
           src={data.url}
         />
       )}
-      {params.nsfw && <div className="nsfw">NSFW ON</div>}
+      {nsfw && <div className="nsfw">NSFW ON</div>}
     </div>
   )
 }
