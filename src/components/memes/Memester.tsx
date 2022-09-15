@@ -41,6 +41,10 @@ export const Mimster = () => {
           fetchMeme()
           return
         }
+        if (data.code) {
+          dispatch({ type: ActionKind.Error, payload: Error(data.message) })
+          return
+        }
         dispatch({ type: ActionKind.Success, payload: data })
       })
       .catch((e: any) => {
@@ -48,7 +52,7 @@ export const Mimster = () => {
       })
   }
 
-  if (error && !data) return <div>{error.message}</div>
+  if (error) return <div className="image-container">{error.message}</div>
 
   if (!data || SUBS.length <= 0) return null
 
@@ -56,12 +60,14 @@ export const Mimster = () => {
     <div className="image-container">
       {data && (
         <div className="image-inner">
-          <div>{data.title}</div>
-          <img
-            // style={{ height: window.innerHeight }}
-            alt="Just a meme"
-            src={data.url}
-          />
+          <div className="image-title">{data.title}</div>
+          <div className="image-wrapper">
+            <img
+              // style={{ height: window.innerHeight }}
+              alt="Just a meme"
+              src={data.url}
+            />
+          </div>
         </div>
       )}
       {nsfw && <div className="nsfw">NSFW ON</div>}
