@@ -6,17 +6,14 @@ import { ActionKind, initialState, MemeReducer } from './state/reducer'
 export const Mimster = () => {
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
-  const params = useMemo(
-    () =>
-      new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams: any, prop: string) => searchParams.get(prop),
-      }),
-    []
-  )
+  const params: { nsfw?: string; interval?: string } = useMemo(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    return Object.fromEntries(urlSearchParams.entries())
+  }, [])
 
   useInterval(() => {
     fetchMeme()
-  }, 1000 * (params.interval || 30))
+  }, 1000 * (params.interval ? parseInt(params.interval) : 30))
 
   const fetchMeme = () => {
     dispatch({ type: ActionKind.Start })
