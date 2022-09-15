@@ -1,8 +1,19 @@
+import { useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 
 export const Mimster = () => {
+  const divRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
+
+  useEffect(() => {
+    if (divRef.current) {
+      setHeight(divRef.current.offsetHeight)
+    }
+  })
+
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
 
   const urlSearchParams = new URLSearchParams(window.location.search)
@@ -29,6 +40,8 @@ export const Mimster = () => {
   }, 1000 * (interval ? parseInt(interval) : 30))
 
   const fetchMeme = () => {
+    if (SUBS.length <= 0) return
+
     dispatch({ type: ActionKind.Start })
     fetch(`https://meme-api.herokuapp.com/gimme/${randomSub(SUBS)}`)
       .then((res: Response) => res.json())
@@ -52,7 +65,7 @@ export const Mimster = () => {
       })
   }
 
-  if (error) return <div className="image-container">{error.message}</div>
+  if (error) return <div className="error">{error.message}</div>
 
   if (!data || SUBS.length <= 0) return null
 
@@ -61,12 +74,8 @@ export const Mimster = () => {
       {data && (
         <div className="image-inner">
           <div className="image-title">{data.title}</div>
-          <div className="image-wrapper">
-            <img
-              // style={{ height: window.innerHeight }}
-              alt="Just a meme"
-              src={data.url}
-            />
+          <div className="image-wrapper" ref={divRef}>
+            <img style={{ height }} alt="Just a meme" src={data.url} />
           </div>
         </div>
       )}

@@ -13,7 +13,18 @@ html {
 
   width: 100%;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: white;
+
+  .error {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 100px;
+  }
 
   .image-inner {
     height: 100%;
@@ -29,7 +40,7 @@ html {
       font-size: 75px;
       width: 100%;
 
-      padding: 10px;
+      padding: 50px;
 
       max-height: 300px;
 
@@ -48,8 +59,6 @@ html {
 
       img {
         max-width: 100vw;
-        max-height: 80vh;
-        height: 100%;
         width: auto;
       }
     }
