@@ -1,9 +1,18 @@
+import { useMemo } from 'react'
 import { useReducer } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 import { ActionKind, initialState, MemeReducer } from './state/reducer'
 
 export const Mimster = () => {
   const [{ data, error }, dispatch] = useReducer(MemeReducer, initialState)
+
+  const params = useMemo(
+    () =>
+      new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams: any, prop: string) => searchParams.get(prop),
+      }),
+    []
+  )
 
   useInterval(() => {
     fetchMeme()
@@ -14,7 +23,8 @@ export const Mimster = () => {
     fetch('https://meme-api.herokuapp.com/gimme')
       .then((res: Response) => res.json())
       .then((data: any) => {
-        if (data.url.includes('.gif') || data.nsfw) {
+        if (data.nsfw && params.nsfw) {
+          console.log('Blocking NSFW')
           fetchMeme()
           return
         }
@@ -38,6 +48,7 @@ export const Mimster = () => {
           src={data.url}
         />
       )}
+      {params.nsfw && <div className="nsfw">NSFW ON</div>}
     </div>
   )
 }
