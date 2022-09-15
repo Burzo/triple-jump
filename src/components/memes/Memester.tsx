@@ -9,6 +9,8 @@ export const Mimster = () => {
 
   const interval = urlSearchParams.get('interval')
   const nsfw = urlSearchParams.get('nsfw')
+  const nogif = urlSearchParams.get('nogif')
+  const allgif = urlSearchParams.get('allgif')
 
   useInterval(() => {
     fetchMeme()
@@ -19,8 +21,11 @@ export const Mimster = () => {
     fetch('https://meme-api.herokuapp.com/gimme')
       .then((res: Response) => res.json())
       .then((data: any) => {
-        if (data.nsfw && nsfw) {
-          console.log('Blocking NSFW')
+        if (
+          (data.nsfw && nsfw) ||
+          (nogif && data.url.includes('.gif')) ||
+          (allgif && !data.url.includes('.gif'))
+        ) {
           fetchMeme()
           return
         }
