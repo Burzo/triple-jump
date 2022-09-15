@@ -55,11 +55,14 @@ export const Mimster = () => {
   return (
     <div className="image-container">
       {data && (
-        <img
-          style={{ height: window.innerHeight }}
-          alt="Just a meme"
-          src={data.url}
-        />
+        <div className="image-inner">
+          <div>{data.title}</div>
+          <img
+            // style={{ height: window.innerHeight }}
+            alt="Just a meme"
+            src={data.url}
+          />
+        </div>
       )}
       {nsfw && <div className="nsfw">NSFW ON</div>}
       {data && <div className="subreddit">{data.subreddit}</div>}
